@@ -6,10 +6,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgMusic = document.getElementById('bg-music');
     const heartsContainer = document.getElementById('hearts-container');
 
+    let isPlaying = false;
+
     // Open Letter
     envelope.addEventListener('click', () => {
         if (!envelopeWrapper.classList.contains('open')) {
             envelopeWrapper.classList.add('open');
+            
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    musicBtn.classList.add('playing');
+                    musicBtn.textContent = '⏸️';
+                    isPlaying = true;
+                }).catch(e => console.log('Audio play failed:', e));
+            }
         }
     });
 
@@ -20,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Music toggle
-    let isPlaying = false;
     musicBtn.addEventListener('click', () => {
         if (isPlaying) {
             bgMusic.pause();

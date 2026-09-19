@@ -13,12 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!envelopeWrapper.classList.contains('open')) {
             envelopeWrapper.classList.add('open');
             
-            if (!isPlaying) {
-                bgMusic.play().then(() => {
+            const music = document.getElementById('bg-music');
+            if (music) {
+                music.play().then(() => {
+                    console.log("Música reproduciendo correctamente");
                     musicBtn.classList.add('playing');
                     musicBtn.textContent = '⏸️';
                     isPlaying = true;
-                }).catch(e => console.log('Audio play failed:', e));
+                }).catch(error => {
+                    console.log("Error al reproducir audio:", error);
+                });
             }
         }
     });

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Día de Amor y Amistad</title>
+    <meta name="description" content="Una carta interactiva especial para celebrar el Día de Amor y Amistad.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Floating Hearts Container -->
+    <div id="hearts-container"></div>
+
+    <!-- Music Button -->
+    <button id="music-btn" class="music-btn" aria-label="Reproducir música">
+        🎵
+    </button>
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_82c58971f1.mp3?filename=romantic-piano-112135.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <div class="container">
+        <!-- Envelope -->
+        <div class="envelope-wrapper" id="envelope-wrapper">
+            <div class="envelope">
+                <div class="front flap"></div>
+                <div class="front pocket"></div>
+                <div class="heart-seal" id="heart-seal"></div>
+                
+                <div class="letter" id="letter">
+                    <button id="close-btn" class="close-btn" aria-label="Cerrar carta">✖</button>
+                    <div class="letter-content">
+                        <h1>Para ti...</h1>
+                        <p class="handwritten">
+                            En este día tan especial, quiero recordarte lo importante que eres para mí. 
+                            Gracias por cada momento, cada sonrisa y por llenar mis días de alegría.
+                            ¡Feliz día de Amor y Amistad! ❤️
+                        </p>
+                        <p class="signature">Con mucho cariño</p>
+                        
+                        <div class="gallery">
+                            <div class="polaroid p1">
+                                <img src="assets/photo1.jpg" alt="Un café romántico">
+                                <div class="caption">Mañanas juntos</div>
+                            </div>
+                            <div class="polaroid p2">
+                                <img src="assets/photo2.jpg" alt="Un hermoso atardecer">
+                                <div class="caption">Tardes perfectas</div>
+                            </div>
+                            <div class="polaroid p3">
+                                <img src="assets/photo3.jpg" alt="Tomados de la mano">
+                                <div class="caption">Siempre contigo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

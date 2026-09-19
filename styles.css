@@ -26,13 +26,25 @@ body {
     font-family: 'Outfit', sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
+    padding: 100px 20px;
 }
 
-/* Floating Hearts */
+/* Fixed container for hearts */
+#hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+}
+
 .heart {
     position: absolute;
     top: -10vh;
@@ -40,7 +52,6 @@ body {
     color: var(--heart-color);
     opacity: 0.7;
     animation: fall linear forwards;
-    z-index: 0;
     pointer-events: none;
 }
 
@@ -52,7 +63,7 @@ body {
 
 /* Music Button */
 .music-btn {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 20px;
     background: white;
@@ -93,8 +104,8 @@ body {
     max-width: 900px;
     display: flex;
     justify-content: center;
-    align-items: center;
     perspective: 1000px;
+    margin-top: 5vh;
 }
 
 .envelope-wrapper {
@@ -106,6 +117,7 @@ body {
 
 .envelope-wrapper.open {
     transform: translateY(120px);
+    margin-bottom: 500px; /* Provides scroll space when letter is open */
 }
 
 .envelope {
@@ -224,54 +236,32 @@ body {
 }
 
 .envelope-wrapper.open .letter {
-    bottom: 120px;
-    height: 75vh;
-    max-height: 800px;
-    width: 90vw;
-    max-width: 600px;
+    bottom: auto;
+    top: -150px;
+    height: auto;
+    max-height: none;
+    width: 95vw;
+    max-width: 750px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     border-radius: 10px;
-    overflow-y: auto;
+    overflow-y: visible;
+    padding-bottom: 60px;
 }
 
-/* Custom Scrollbar for Letter */
-.letter::-webkit-scrollbar {
-    width: 8px;
-}
-.letter::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.02);
-}
-.letter::-webkit-scrollbar-thumb {
-    background: var(--envelope-light);
-    border-radius: 4px;
-}
-
-.letter-content {
-    padding: 40px;
-    opacity: 0;
-    transition: opacity 0.5s 0.5s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.envelope-wrapper.open .letter-content {
-    opacity: 1;
-}
-
+/* Close Button */
 .close-btn {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 20px;
+    right: 20px;
     background: rgba(0,0,0,0.05);
     border: none;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
     cursor: pointer;
     z-index: 20;
     transition: background 0.3s;
@@ -283,34 +273,47 @@ body {
 }
 
 .close-btn:hover {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.15);
+}
+
+.letter-content {
+    padding: 60px 40px 40px 40px;
+    opacity: 0;
+    transition: opacity 0.5s 0.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.envelope-wrapper.open .letter-content {
+    opacity: 1;
 }
 
 /* Typography */
 .letter h1 {
     font-family: 'Dancing Script', cursive;
     color: var(--text-color);
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 20px;
     text-align: center;
 }
 
 .handwritten {
     font-family: 'Caveat', cursive;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     color: var(--text-color);
     line-height: 1.5;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .signature {
     font-family: 'Dancing Script', cursive;
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: var(--envelope-dark);
     align-self: flex-end;
     margin-top: 10px;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 /* Gallery */
@@ -325,34 +328,37 @@ body {
 
 .polaroid {
     background: white;
-    padding: 15px 15px 40px 15px;
+    padding: 15px 15px 50px 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     transition: transform 0.3s;
     position: relative;
-    max-width: 250px;
+    max-width: 280px;
+    width: 100%;
 }
 
 .polaroid img {
     width: 100%;
-    height: 220px;
+    height: 250px;
     object-fit: cover;
     background: #eee;
 }
 
 .polaroid .caption {
     position: absolute;
-    bottom: 10px;
+    bottom: 12px;
     left: 0;
     width: 100%;
     text-align: center;
     font-family: 'Caveat', cursive;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: var(--text-color);
 }
 
-.polaroid:nth-child(1) { transform: rotate(-3deg); }
-.polaroid:nth-child(2) { transform: rotate(4deg); }
-.polaroid:nth-child(3) { transform: rotate(-2deg); }
+/* Dynamic tilts for polaroids */
+.polaroid:nth-child(even) { transform: rotate(3deg); }
+.polaroid:nth-child(odd) { transform: rotate(-2deg); }
+.polaroid:nth-child(3n) { transform: rotate(4deg); }
+.polaroid:nth-child(4n) { transform: rotate(-4deg); }
 
 .polaroid:hover {
     transform: scale(1.05) rotate(0deg);
@@ -363,17 +369,29 @@ body {
 /* Responsive */
 @media (max-width: 600px) {
     .envelope-wrapper.open .letter {
-        width: 95vw;
-        height: 85vh;
-        bottom: 50px;
+        width: 100vw;
+        border-radius: 0;
+        top: -100px;
     }
     
+    body {
+        padding: 50px 0;
+    }
+
+    .letter-content {
+        padding: 50px 20px 20px 20px;
+    }
+
     .letter h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
     }
     
     .handwritten {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+    }
+
+    .signature {
+        font-size: 2rem;
     }
     
     .polaroid {
